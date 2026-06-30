@@ -115,6 +115,7 @@ variable {G : Type*} [Group G]
 #check (one_mul : ∀ a : G, 1 * a = a)
 #check (inv_mul_cancel : ∀ a : G, a⁻¹ * a = 1)
 -----------------------------------
+namespace Love
 variable {G : Type*} [Group G]
 
 theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
@@ -133,4 +134,5 @@ theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
   have h : a * b * (a * b)⁻¹ = a * b * (b⁻¹ * a⁻¹) := by
     rw [mul_inv_cancel, ← mul_assoc, mul_assoc a b, mul_inv_cancel, mul_one, mul_inv_cancel]
   exact mul_left_cancel h
+end Love
 
