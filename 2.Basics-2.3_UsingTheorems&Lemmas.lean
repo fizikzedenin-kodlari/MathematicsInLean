@@ -1,0 +1,133 @@
+import Mathlib.Tactic
+--2.Basics
+--2.3 Using Theorems and Lemmas
+#check (le_refl : ∀ a : ℝ, a ≤ a)
+variable (a b c d e : ℝ)
+#check (le_trans : a ≤ b → b ≤ c → a ≤ c)
+-------------------------------------------------
+variable (h : a ≤ b) (h' : b ≤ c)
+#check (le_refl : ∀ a : Real, a ≤ a)
+#check (le_refl a : a ≤ a)
+#check (le_trans : a ≤ b → b ≤ c → a ≤ c)
+#check (le_trans h : b ≤ c → a ≤ c)
+#check (le_trans h h' : a ≤ c)
+-------------------------------------------------
+example (x y z : ℝ) (h₀ : x ≤ y) (h₁ : y ≤ z) : x ≤ z := by
+  apply le_trans
+  apply h₀
+  apply h₁
+
+example (x y z : ℝ) (h₀ : x ≤ y) (h₁ : y ≤ z) : x ≤ z := by
+  apply le_trans h₀
+  apply h₁
+
+example (x y z : ℝ) (h₀ : x ≤ y) (h₁ : y ≤ z) : x ≤ z :=
+  le_trans h₀ h₁
+
+example (x : ℝ) : x ≤ x := by
+  apply le_refl
+
+example (x : ℝ) : x ≤ x :=
+  le_refl x
+-------------------------------------------------
+#check (le_refl : ∀ a, a ≤ a)
+#check (le_trans : a ≤ b → b ≤ c → a ≤ c)
+#check (lt_of_le_of_lt : a ≤ b → b < c → a < c)
+#check (lt_of_lt_of_le : a < b → b ≤ c → a < c)
+#check (lt_trans : a < b → b < c → a < c)
+-------------------------------------------------
+example (h₀ : a ≤ b) (h₁ : b < c) (h₂ : c ≤ d) (h₃ : d < e) : a < e := by
+  apply lt_trans (lt_of_le_of_lt h₀ h₁) (lt_of_le_of_lt h₂ h₃)
+-------------------------------------------------
+example (h₀ : a ≤ b) (h₁ : b < c) (h₂ : c ≤ d) (h₃ : d < e) : a < e := by
+  linarith
+-------------------------------------------------
+example (h : 2 * a ≤ 3 * b) (h' : 1 ≤ a) (h'' : d = 2) : d + a ≤ 5 * b := by
+  linarith
+-------------------------------------------------
+example (h : 1 ≤ a) (h' : b ≤ c) : 2 + a + Real.exp b ≤ 3 * a + Real.exp c := by
+  linarith [Real.exp_le_exp.mpr h']
+-------------------------------------------------
+#check (Real.exp_le_exp : Real.exp a ≤ Real.exp b ↔ a ≤ b)
+#check (Real.exp_lt_exp : Real.exp a < Real.exp b ↔ a < b)
+#check (Real.log_le_log : 0 < a → a ≤ b → Real.log a ≤ Real.log b)
+#check (Real.log_lt_log : 0 < a → a < b → Real.log a < Real.log b)
+#check (add_le_add : a ≤ b → c ≤ d → a + c ≤ b + d)
+#check (add_le_add_left : a ≤ b → ∀ c, a + c ≤ b + c)
+#check (add_le_add_right : a ≤ b → ∀ c, c + a ≤ c + b)
+#check (add_lt_add_of_le_of_lt : a ≤ b → c < d → a + c < b + d)
+#check (add_lt_add_of_lt_of_le : a < b → c ≤ d → a + c < b + d)
+#check (add_lt_add_left : a < b → ∀ c, a + c < b + c)
+#check (add_lt_add_right : a < b → ∀ c, c + a < c + b)
+#check (add_nonneg : 0 ≤ a → 0 ≤ b → 0 ≤ a + b)
+#check (add_pos : 0 < a → 0 < b → 0 < a + b)
+#check (add_pos_of_pos_of_nonneg : 0 < a → 0 ≤ b → 0 < a + b)
+#check (Real.exp_pos : ∀ a, 0 < Real.exp a)
+#check add_le_add_left
+-------------------------------------------------
+example (h : a ≤ b) : Real.exp a ≤ Real.exp b := by
+  rw [Real.exp_le_exp]
+  exact h
+-------------------------------------------------
+example (h₀ : a ≤ b) (h₁ : c < d) : a + Real.exp c + e < b + Real.exp d + e := by
+  apply add_lt_add_of_lt_of_le
+  · apply add_lt_add_of_le_of_lt h₀
+    apply Real.exp_lt_exp.mpr h₁
+  apply le_refl
+-------------------------------------------------
+example (h₀ : d ≤ e) : c + Real.exp (a + d) ≤ c + Real.exp (a + e) := by
+  sorry
+
+-------------------------------------------------
+example : (0 : ℝ) < 1 := by norm_num
+-------------------------------------------------
+example (h : a ≤ b) : Real.log (1 + Real.exp a) ≤ Real.log (1 + Real.exp b) := by
+  have h₀ : 0 < 1 + Real.exp a := by sorry
+  apply Real.log_le_log h₀
+  sorry
+-------------------------------------------------
+example : 0 ≤ a ^ 2 := by
+  -- apply?
+  exact sq_nonneg a
+-------------------------------------------------
+example (h : a ≤ b) : c - Real.exp b ≤ c - Real.exp a := by
+  linarith [Real.exp_le_exp.mpr h]
+-------------------------------------------------
+example : 2 * a * b ≤ a ^ 2 + b ^ 2 := by
+  have h : 0 ≤ a ^ 2 - 2 * a * b + b ^ 2
+  calc
+    a ^ 2 - 2 * a * b + b ^ 2 = (a - b) ^ 2 := by ring
+    _ ≥ 0 := by apply pow_two_nonneg
+
+  calc
+    2 * a * b = 2 * a * b + 0 := by ring
+    _ ≤ 2 * a * b + (a ^ 2 - 2 * a * b + b ^ 2) := add_le_add (le_refl _) h
+    _ = a ^ 2 + b ^ 2 := by ring
+-------------------------------------------------
+example : 2 * a * b ≤ a ^ 2 + b ^ 2 := by
+  have h : 0 ≤ a ^ 2 - 2 * a * b + b ^ 2
+  calc
+    a ^ 2 - 2 * a * b + b ^ 2 = (a - b) ^ 2 := by ring
+    _ ≥ 0 := by apply pow_two_nonneg
+  linarith
+-------------------------------------------------
+example : |a * b| ≤ (a ^ 2 + b ^ 2) / 2 := by
+  have h1 : 2 * a * b ≤ a ^ 2 + b ^ 2 := by
+    have h : 0 ≤ a ^ 2 - 2 * a * b + b ^ 2
+    calc
+      a ^ 2 - 2 * a * b + b ^ 2 = (a - b) ^ 2 := by ring
+      _ ≥ 0 := by apply pow_two_nonneg
+    linarith
+  have h2 : 2 * (-a) * b ≤ (-a) ^ 2 + b ^ 2 := by
+    have h : 0 ≤ (-a) ^ 2 - 2 * (-a) * b + b ^ 2
+    calc
+      (-a) ^ 2 - 2 * (-a) * b + b ^ 2 = ((-a) - b) ^ 2 := by ring
+      _ ≥ 0 := by apply pow_two_nonneg
+    linarith
+  apply abs_le'.mpr
+  constructor
+  · linarith
+  · linarith
+-------------------------------------------------
+#check abs_le'.mpr
+-------------------------------------------------
