@@ -6,7 +6,7 @@ open Classical
 variable {α β : Type*} [Nonempty β]
 ---------------------------------------
 open Function
-variable (g : ℝ → ℝ) (x : ℝ)
+variable (g: β → α) (x : α)
 #check (invFun g : α → β)
 #check (leftInverse_invFun : Injective g → LeftInverse (invFun g) g)
 #check (leftInverse_invFun : Injective g → ∀ y, invFun g (g y) = y)
