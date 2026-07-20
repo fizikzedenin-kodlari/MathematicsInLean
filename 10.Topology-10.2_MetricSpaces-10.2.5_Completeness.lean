@@ -12,6 +12,7 @@ example (u : ℕ → X) :
   CauchySeq u ↔ ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, dist (u n) (u N) < ε :=
 Metric.cauchySeq_iff'
 --------------------------------------------------------
+open Filter Topology
 example [CompleteSpace X] (u : ℕ → X) (hu : CauchySeq u) :
   ∃ x, Tendsto u atTop (𝓝 x) :=
 cauchySeq_tendsto_of_complete hu
