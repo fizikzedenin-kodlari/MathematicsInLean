@@ -7,6 +7,7 @@ variable {X : Type*} [MetricSpace X]
 example : IsCompact (Set.Icc 0 1 : Set ℝ) :=
   isCompact_Icc
 --------------------------------------------------------
+open Filter Topology
 example {s : Set X} (hs : IsCompact s) {u : ℕ → X} (hu : ∀ n, u n ∈ s) :
     ∃ a ∈ s, ∃ φ : ℕ → ℕ, StrictMono φ ∧ Tendsto (u ∘ φ) atTop (𝓝 a) :=
   hs.tendsto_subseq hu
