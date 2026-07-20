@@ -24,7 +24,7 @@ example (s : Set X) : IsOpen s ↔ ∀ x ∈ s, ∃ ε > 0, Metric.ball x ε ⊆
 example {s : Set X} : IsClosed s ↔ IsOpen (sᶜ) :=
   isOpen_compl_iff.symm
 --------------------------------------------------------
-open Topology
+open Filter Topology
 --------------------------------------------------------
 example {s : Set X} (hs : IsClosed s) {u : ℕ → X} (hu : Tendsto u atTop (𝒩 a))
     (hus : ∀ n, u n ∈ s) : a ∈ s :=
