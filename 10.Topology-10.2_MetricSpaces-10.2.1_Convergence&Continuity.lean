@@ -15,6 +15,7 @@ variable {X : Type*} [MetricSpace X] (a b c : X)
 --------------------------------------------------------
 --10.2.1 Convergence and continuity
 --------------------------------------------------------
+open Filter Topology
 --**This code has the bugs. I'll update it once I fix them.**
 example {u : ℕ → X} {a : X} :
   Tendsto u atTop (𝓝 a) ↔ ∀ ε > 0, ∃ N, ∀ n ≥ N, dist (u n) a < ε :=
