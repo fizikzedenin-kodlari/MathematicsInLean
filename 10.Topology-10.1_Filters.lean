@@ -1,6 +1,7 @@
 import Mathlib.Tactic
 --10.Topology
 --10.1 Filters
+open Filter Topology Set
 def principal {α : Type*} (s : Set α) : Filter α 
 where
   sets := { t | s ⊆ t }
@@ -70,7 +71,7 @@ example (u : ℕ → ℝ) (x₀ : ℝ) :
 --------------------------------------------------------
 example (P Q : ℕ → Prop) (hP : ∀ᶠ n in atTop, P n) (hQ : ∀ᶠ n in atTop, Q n) :
   ∀ᶠ n in atTop, P n ∧ Q n :=
-hp.and hQ
+hP.and hQ
 --------------------------------------------------------
 example (u v : ℕ → ℝ) (h : ∀ᶠ n in atTop, u n = v n) (x₀ : ℝ) :
   Tendsto u atTop (𝒩 x₀) ↔ Tendsto v atTop (𝒩 x₀) :=
