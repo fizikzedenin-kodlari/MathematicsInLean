@@ -11,8 +11,6 @@ open Filter Topology
 example {s : Set X} (hs : IsCompact s) {u : ℕ → X} (hu : ∀ n, u n ∈ s) :
     ∃ a ∈ s, ∃ φ : ℕ → ℕ, StrictMono φ ∧ Tendsto (u ∘ φ) atTop (𝓝 a) :=
   hs.tendsto_subseq hu
-
---**This code has the bugs. I'll update it once I fix them.**
 --------------------------------------------------------
 example {s : Set X} (hs : IsCompact s) (hs' : s.Nonempty) {f : X → ℝ}
     (hfs : ContinuousOn f s) :
@@ -27,6 +25,7 @@ example {s : Set X} (hs : IsCompact s) (hs' : s.Nonempty) {f : X → ℝ}
 example {s : Set X} (hs : IsCompact s) : IsClosed s :=
   hs.isClosed
 --------------------------------------------------------
+open Set
 example {X : Type*} [MetricSpace X] [CompactSpace X] : IsCompact (univ : Set X) :=
   isCompact_univ
 --------------------------------------------------------
