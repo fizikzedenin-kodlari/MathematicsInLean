@@ -26,3 +26,10 @@ example {f : ι → Set α} (h : ∀ b, MeasurableSet (f b)) : MeasurableSet (�
 example {f : ι → Set α} (h : ∀ b, MeasurableSet (f b)) : MeasurableSet (⋂ b, f b) :=
   MeasurableSet.iInter h
 -----------------------------------------------------------
+open MeasureTheory
+-----------------------------------------------------------
+variable {α : Type*} [MeasurableSpace α] (μ : Measure α)
+-----------------------------------------------------------
+example {P : α → Prop} : (∀ᵐ x ∂μ, P x) ↔ ∀ᶠ x in ae μ, P x :=
+  Iff.rfl
+-----------------------------------------------------------
