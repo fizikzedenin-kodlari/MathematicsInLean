@@ -21,7 +21,6 @@ def Tendsto₁ {X Y : Type*} (f : X → Y) (F : Filter X) (G : Filter Y) :=
 def Tendsto₂ {X Y : Type*} (f : X → Y) (F : Filter X) (G : Filter Y) :=
   map f F ≤ G
 --------------------------------------------------------
---**This code has the bugs. I'll update it once I fix them.**
 example {X Y : Type*} (f : X → Y) (F : Filter X) (G : Filter Y) :
   Tendsto₂ f F G ↔ Tendsto₁ f F G :=
   Iff.rfl
@@ -74,11 +73,11 @@ example (P Q : ℕ → Prop) (hP : ∀ᶠ n in atTop, P n) (hQ : ∀ᶠ n in atT
 hP.and hQ
 --------------------------------------------------------
 example (u v : ℕ → ℝ) (h : ∀ᶠ n in atTop, u n = v n) (x₀ : ℝ) :
-  Tendsto u atTop (𝒩 x₀) ↔ Tendsto v atTop (𝒩 x₀) :=
+  Tendsto u atTop (𝓝 x₀) ↔ Tendsto v atTop (𝓝 x₀) :=
 tendsto_congr' h
 --------------------------------------------------------
 example (u v : ℕ → ℝ) (h : u =ᶠ[atTop] v) (x₀ : ℝ) :
-  Tendsto u atTop (𝒩 x₀) ↔ Tendsto v atTop (𝒩 x₀) :=
+  Tendsto u atTop (𝓝 x₀) ↔ Tendsto v atTop (𝓝 x₀) :=
 tendsto_congr' h
 --------------------------------------------------------
 #check Eventually.of_forall

@@ -26,16 +26,15 @@ example {s : Set X} : IsClosed s ↔ IsOpen (sᶜ) :=
 --------------------------------------------------------
 open Filter Topology
 --------------------------------------------------------
-example {s : Set X} (hs : IsClosed s) {u : ℕ → X} (hu : Tendsto u atTop (𝒩 a))
+example {s : Set X} (hs : IsClosed s) {u : ℕ → X} (hu : Tendsto u atTop (𝓝 a))
     (hus : ∀ n, u n ∈ s) : a ∈ s :=
   hs.mem_of_tendsto hu (Eventually.of_forall hus)
---**This code has the bugs. I'll update it once I fix them.**
 --------------------------------------------------------
 example {s : Set X} : a ∈ closure s ↔ ∀ ε > 0, ∃ b ∈ s, a ∈ Metric.ball b ε :=
   Metric.mem_closure_iff
 --------------------------------------------------------
 -- Do the next exercise without using mem_closure_iff_seq_limit
-example {u : ℕ → X} (hu : Tendsto u atTop (𝒩 a)) {s : Set X} (hs : ∀ n, u n ∈ s) :
+example {u : ℕ → X} (hu : Tendsto u atTop (𝓝 a)) {s : Set X} (hs : ∀ n, u n ∈ s) :
     a ∈ closure s :=
   sorry
 --------------------------------------------------------
