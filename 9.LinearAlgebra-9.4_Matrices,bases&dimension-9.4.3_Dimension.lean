@@ -1,4 +1,4 @@
-import Mathlib.Tactic
+import Mathlib
 --9.Linear Algebra
 --9.4 Matrices, bases and dimension
 --9.4.3 Dimension
@@ -20,8 +20,7 @@ example : Module.finrank ℂ ℂ = 1 :=
 --------------------------------------------------------
 -- But as a real vector space it has dimension two.
 example : Module.finrank ℝ ℂ = 2 :=
-  Submodule.finrank_real_complex
---**This code has the bugs. I'll update it once I fix them.**
+  Complex.finrank_real_complex
 --------------------------------------------------------
 example [FiniteDimensional K V] : 0 < Module.finrank K V ↔ Nontrivial V :=
   Module.finrank_pos_iff
@@ -32,7 +31,7 @@ example [FiniteDimensional K V] (h : 0 < Module.finrank K V) : Nontrivial V := b
 --------------------------------------------------------
 variable {ι : Type*} (B : Basis ι K V)
 --------------------------------------------------------
-example [Finite ι] : FiniteDimensional K V := FiniteDimensional.of_fintype_basis B
+example [Finite ι] : FiniteDimensional K V := Module.Finite.of_basis B
 --------------------------------------------------------
 example [FiniteDimensional K V] : Finite ι :=
   (FiniteDimensional.fintypeBasisIndex B).finite
