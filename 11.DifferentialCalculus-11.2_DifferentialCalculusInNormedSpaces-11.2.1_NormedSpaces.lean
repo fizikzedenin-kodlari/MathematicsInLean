@@ -1,4 +1,4 @@
-import Mathlib.Tactic
+import Mathlib
 --11.Differential Calculus
 --11.2 Differential Calculus in Normed Spaces
 --11.2.1 Normed spaces
@@ -36,4 +36,3 @@ example (K : Type*) [NontriviallyNormedField K] (E : Type*) [NormedAddCommGroup 
     [NormedSpace K E] [CompleteSpace K] [FiniteDimensional K E] : CompleteSpace E :=
   FiniteDimensional.complete K E
 -----------------------------------------------------------
---**This code has the bugs. I'll update it once I fix them.**
