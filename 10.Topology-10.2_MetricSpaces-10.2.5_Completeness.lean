@@ -16,9 +16,8 @@ open Filter Topology
 example [CompleteSpace X] (u : ℕ → X) (hu : CauchySeq u) :
   ∃ x, Tendsto u atTop (𝓝 x) :=
 cauchySeq_tendsto_of_complete hu
---**This code has the bugs. I'll update it once I fix them.**
 --------------------------------------------------------
-open Set
+open Finset
 --------------------------------------------------------
 theorem cauchySeq_of_le_geometric_two' {u : ℕ → X}
   (hu : ∀ n : ℕ, dist (u n) (u (n + 1)) ≤ (1 / 2) ^ n) : CauchySeq u := by
@@ -31,7 +30,7 @@ theorem cauchySeq_of_le_geometric_two' {u : ℕ → X}
   calc
     dist (u (N + k)) (u N) = dist (u (N + 0)) (u (N + k)) := sorry
     _ ≤ ∑ i ∈ range k, dist (u (N + i)) (u (N + (i + 1))) := sorry
-    _ ≤ ∑ i ∈ range k, (1 / 2 : ℝ) ^ (N + i) := sorry
+    _ ≤ ∑ i ∈  range k, (1 / 2 : ℝ) ^ (N + i) := sorry
     _ = 1 / 2 ^ N * ∑ i ∈ range k, (1 / 2 : ℝ) ^ i := sorry
     _ ≤ 1 / 2 ^ N * 2 := sorry
     _ < ε := sorry
@@ -39,7 +38,7 @@ theorem cauchySeq_of_le_geometric_two' {u : ℕ → X}
 open Metric
 --------------------------------------------------------
 example [CompleteSpace X] (f : ℕ → Set X) (ho : ∀ n, IsOpen (f n)) (hd : ∀ n, Dense (f n)) :
-  Dense (∩ n, f n) := by
+  Dense (⋂ n, f n) := by
   let B : ℕ → ℝ := fun n ↦ (1 / 2) ^ n
   have Bpos : ∀ n, 0 < B n
   sorry
