@@ -1,4 +1,4 @@
-import Mathlib.Tactic
+import Mathlib
 --8.Groups&Rings
 --8.2 Rings
 --8.2.3 Algebras and polynomials
@@ -73,8 +73,7 @@ example : IsAlgClosed ℂ := inferInstance
 ---------------------------------------------------------------
 #check (Complex.ofReal : ℝ → ℂ)
 ---------------------------------------------------------------
-example : (X ^ 2 + 1 : ℝ[X]).eval₂ Complex.ofReal Complex.I = 0 := by simp
-----**I'll update it after I fix the bug in the code.**-------------
+example : (X ^ 2 + 1 : ℝ[X]).eval₂ Complex.ofRealHom Complex.I = 0 := by simp
 ---------------------------------------------------------------
 open MvPolynomial
 ---------------------------------------------------------------
